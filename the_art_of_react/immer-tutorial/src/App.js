@@ -1,4 +1,5 @@
 import React, { useCallback, useRef, useState } from "react";
+import produce from "immer";
 
 const App = () => {
   const nextId = useRef(1);
@@ -11,7 +12,12 @@ const App = () => {
   const onChange = useCallback(
     (e) => {
       const { name, value } = e.target;
-      setForm({ ...form, [name]: [value] }); //input 여러개라서 변수명으로 사용
+      //setForm({ ...form, [name]: [value] });
+      setForm(
+        produce(form, (draft) => {
+          draft[name] = value;
+        })
+      );
     },
     [form]
   );
@@ -24,10 +30,12 @@ const App = () => {
         username: form.username,
       };
 
-      setData({
-        ...data,
-        array: data.array.concat(info),
-      });
+      //setData({...data,array: data.array.concat(info),});
+      setData(
+        produce(data, (draft) => {
+          draft.array.push(info);
+        })
+      );
       setForm({
         name: "",
         username: "",
