@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Link } from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
-import Profile from "./Profile";
+import Profiles from "./Profiles";
 
 const App = () => {
   return (
@@ -12,18 +12,15 @@ const App = () => {
           <Link to="/">홈</Link>
         </li>
         <li>
-          <Link to="about">소개</Link>
+          <Link to="/about">소개</Link>
         </li>
         <li>
-          <Link to="profile/cafe">카페</Link>
-        </li>
-        <li>
-          <Link to="profile/menu">메뉴</Link>
+          <Link to="/profiles">프로필</Link>
         </li>
       </ul>
       <Route path="/" component={Home} exact={true} />
       <Route path={["/about", "/info"]} component={About} />
-      <Route path="/profile/:type" component={Profile} />
+      <Route path="/profiles" component={Profiles} />
     </div>
   );
 };

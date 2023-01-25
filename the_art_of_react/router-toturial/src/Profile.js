@@ -12,6 +12,7 @@ const data = {
 };
 
 const Profile = ({ match }) => {
+  console.log("m", match);
   const { type } = match.params;
   const profile = data[type];
   if (!profile) {
