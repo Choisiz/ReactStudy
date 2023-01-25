@@ -1,4 +1,5 @@
 import React from "react";
+import WithRouterSample from "./WithRouterSample";
 
 const data = {
   cafe: {
@@ -24,6 +25,7 @@ const Profile = ({ match }) => {
         {type}({profile.name})
       </h3>
       <p>{profile.des}</p>
+      <WithRouterSample />
     </div>
   );
 };
