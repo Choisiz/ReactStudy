@@ -1,32 +1,15 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useCallback, useState } from "react";
+import Categories from "./component/Categories";
+import NewsList from "./component/NewsList";
 
 const App = () => {
-  const [data, setData] = useState(null);
-  const API = process.env.REACT_APP_API_KEY;
-  const onClick = async () => {
-    try {
-      const res = await axios.get(
-        `https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API}`
-      );
-      setData(res.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const [category, setCategory] = useState("all");
+  const onSelect = useCallback((category) => setCategory(category), []);
   return (
-    <div>
-      <div>
-        <button onClick={onClick}>불러오기</button>
-      </div>
-      {data && (
-        <textarea
-          row={7}
-          value={JSON.stringify(data, null, 2)}
-          readOnly={true}
-        />
-      )}
-    </div>
+    <>
+      <Categories category={category} onSelect={onSelect} />
+      <NewsList category={category} />
+    </>
   );
 };
 
