@@ -1,15 +1,16 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import Categories from "../component/Categories";
 import NewsList from "../component/NewsList";
 
-const NewsPage = ({ match }) => {
-  console.log("ss", match);
-  const category = match.params.category || "all";
+const NewsPage = () => {
+  const param = useParams();
+  const category = param.category || "all";
   return (
-    <div>
+    <>
       <Categories />
       <NewsList category={category} />
-    </div>
+    </>
   );
 };
 

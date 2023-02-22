@@ -23,7 +23,6 @@ const sampleArticle = {
 };
 
 const NewsList = ({ category }) => {
-  console.log("cc", category);
   const API = process.env.REACT_APP_API_KEY;
   const [articles, setArticle] = useState(null);
   const [loading, setLoading] = useState(false);

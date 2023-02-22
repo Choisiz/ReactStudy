@@ -52,8 +52,7 @@ const Categories = () => {
       {categories.map((cate) => (
         <Category
           key={cate.name}
-          activeClassName="active"
-          exact={cate.name === "all"}
+          activeclassname="active"
           to={cate.name === "all" ? "/" : `/${cate.name}`}
         >
           {cate.text}

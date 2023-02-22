@@ -1,11 +1,13 @@
 import React, { useCallback, useState } from "react";
-import { Route } from "react-router-dom";
-import Categories from "./component/Categories";
-import NewsList from "./component/NewsList";
+import { Route, Routes } from "react-router-dom";
 import NewsPage from "./pages/NewsPage";
 
 const App = () => {
-  return <Route path="/:category?" component={NewsPage} />;
+  return (
+    <Routes>
+      <Route path="/:category?" element={<NewsPage />} />
+    </Routes>
+  );
 };
 
 export default App;
