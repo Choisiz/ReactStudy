@@ -5,7 +5,7 @@ const TOGGLE = "todos/TOGGLE";
 const REMOVE = "todos/REMOVE";
 
 //action function
-export const change_input = (input) => ({
+export const changeInput = (input) => ({
   type: CHANGE_INPUT,
   input,
 });
@@ -46,7 +46,7 @@ function todos(state = initialState, action) {
     case CHANGE_INPUT:
       return {
         ...state,
-        input: state.input,
+        input: action.input,
       };
     case INSERT:
       return {
