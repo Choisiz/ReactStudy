@@ -10,9 +10,9 @@ const CounterContainer = ({ number, increase, decrease }) => {
 };
 
 //리덕스 스토어의 state를 컴포넌트의 props로 넘겨줌
-const mapStateToProps = (state) => ({
-  number: state.counter.number,
-});
+// const mapStateToProps = (state) => ({
+//   number: state.counter.number,
+// });
 
 //action function을 컴포넌트의 props로 넘겨줌
 //스토어의 dispatch를 props로 받아옴
