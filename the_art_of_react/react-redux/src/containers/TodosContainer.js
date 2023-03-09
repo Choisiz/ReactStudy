@@ -1,67 +1,34 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useCallback } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
 import Todos from "../components/Todos";
 import { changeInput, insert, toggle, remove } from "../modules/todos";
 
-const TodosContainer = ({
-  input,
-  todos,
-  insert,
-  changeInput,
-  toggle,
-  remove,
-}) => {
+const TodosContainer = () => {
+  // const { input, todos } = useSelector(({ todos }) => ({
+  //   input: todos.input,
+  //   todos: todos.todos,
+  // }));
+  const input = useSelector((state) => state.todos.input);
+  const todos = useSelector((state) => state.todos.todos);
+  const dispatch = useDispatch();
+
+  const onChangeInput = useCallback((input) => dispatch(changeInput(input)), [
+    dispatch,
+  ]);
+  const onInsert = useCallback((text) => dispatch(insert(text)), [dispatch]);
+  const onToggle = useCallback((id) => dispatch(toggle(id)), [dispatch]);
+  const onRemove = useCallback((id) => dispatch(remove(id)), [dispatch]);
+
   return (
     <Todos
       input={input}
       todos={todos}
-      onChangeInput={changeInput}
-      onInsert={insert}
-      onToggle={toggle}
-      onRemove={remove}
+      onChangeInput={onChangeInput}
+      onInsert={onInsert}
+      onToggle={onToggle}
+      onRemove={onRemove}
     />
   );
 };
 
-const mapStateToProps = (state) => ({
-  input: state.todos.input,
-  todos: state.todos.todos,
-});
-
-//아래는 다 같은동작임
-const mapDispatchToProps = {
-  changeInput,
-  insert,
-  toggle,
-  remove,
-};
-
-// const mapDispatchToProps = (dispatch) => ({
-//   changeInput: (input) => {
-//     dispatch(changeInput(input));
-//   },
-//   insert: (text) => {
-//     dispatch(insert(text));
-//   },
-//   toggle: (id) => {
-//     dispatch(toggle(id));
-//   },
-//   remove: (id) => {
-//     dispatch(remove(id));
-//   },
-// });
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodosContainer);
-
-// export default connect(
-//   (state) => ({
-//     input: state.todos.input,
-//     todos: state.todos.todos,
-//   }),
-//   {
-//     changeInput,
-//     insert,
-//     toggle,
-//     remove,
-//   }
-// )(TodosContainer);
+export default React.memo(TodosContainer);
