@@ -1,51 +1,14 @@
 const { createStore } = require("redux");
-
-//reducer
-const reducer = (prevState, action) => {
-  switch (action.type) {
-    case "LOG_IN":
-      return {
-        ...prevState,
-        user: action.data,
-      };
-    case "LOG_OUt":
-      return {
-        ...prevState,
-      };
-    case "ADD_POST":
-      return {
-        ...prevState,
-        posts: [...prevState.posts, action.data],
-      };
-    default:
-      return prevState;
-  }
-};
-
+const reducer = require("./reducers/reducer");
+const { logIn, logOut } = require("./actions/user");
+const { addPost } = require("./actions/post");
 //init
 const initialState = {
-  user: null,
-  isLoggingIn: true,
+  user: {
+    isLoggingIn: true,
+    data: null,
+  },
   posts: [],
-};
-
-//action func
-const logIn = (data) => {
-  return {
-    type: "LOG_IN",
-    data,
-  };
-};
-const logOut = () => {
-  return {
-    type: "LOG_OUT",
-  };
-};
-const addPost = (data) => {
-  return {
-    type: "ADD_POST",
-    data,
-  };
 };
 
 const store = createStore(reducer, initialState);
