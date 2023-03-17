@@ -1,7 +1,8 @@
-const { createStore } = require("redux");
+const { createStore, applyMiddleware } = require("redux");
 const reducer = require("./reducers/reducer");
 const { logIn, logOut } = require("./actions/user");
 const { addPost } = require("./actions/post");
+const action = require("./actions/action");
 //init
 const initialState = {
   user: {
@@ -11,14 +12,44 @@ const initialState = {
   posts: [],
 };
 
-const store = createStore(reducer, initialState);
-store.subscribe(() => {
-  console.log("change");
-});
+//미드웰어 만들기
+const firstMiddleware = (store) => (next) => (action) => {
+  console.log("로깅:", action);
+  dispatch(action);
+};
 
-store.dispatch(logIn({ id: 1, name: "dd", admin: true }));
+//redux-thunk
+const thunkMiddleware = (store) => (next) => (action) => {
+  if (typeof action === "function") {
+    return action(store.dispatch, store.getState);
+  }
+
+  return next(action);
+};
+
+const enhancer = applyMiddleware(firstMiddleware, thunkMiddleware);
+
+const store = createStore(reducer, initialState, enhancer);
+
+console.log("1st", store.getState());
+
+store.dispatch(
+  logIn({
+    id: 1,
+    name: "choisis",
+    admin: true,
+  })
+);
 console.log("2st", store.getState());
-store.dispatch(addPost({ userId: 1, id: 1, content: "hello" }));
-console.log("3st", store.getState());
-store.dispatch(logOut());
-console.log("4cst", store.getState());
+
+// store.dispatch(
+//   addPost({
+//     userId: 1,
+//     id: 1,
+//     content: "hello",
+//   })
+// );
+// console.log("3st", store.getState());
+
+// store.dispatch(logOut());
+// console.log("4cst", store.getState());
