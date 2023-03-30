@@ -37,7 +37,7 @@ store.dispatch(
   logIn({
     id: 1,
     name: "choi",
-    admin: true,
+    admin: false,
   })
 );
 
