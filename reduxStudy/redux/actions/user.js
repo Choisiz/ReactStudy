@@ -6,8 +6,9 @@ const logIn = (data) => {
       setTimeout(() => {
         dispatch(
           logInSuccess({
-            userId: 1,
-            nickname: "choisis",
+            userId: data.id,
+            nickname: data.name,
+            admin: true,
           })
         );
       }, 2000);
