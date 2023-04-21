@@ -14,7 +14,9 @@ const initialState = {
 
 //미드웰어 만들기
 const firstMiddleware = (store) => (next) => (action) => {
-  console.log("로깅:", action);
+  console.log(action);
+  console.log(next);
+  console.log(action);
   next(action);
 };
 
@@ -24,7 +26,7 @@ const thunkMiddleware = (store) => (next) => (action) => {
     //함수를 액션으로 둔다: 비동기
     return action(store.dispatch, store.getState);
   }
-  return next(action);
+  return next(action); //dispatch
 };
 
 const enhancer = applyMiddleware(firstMiddleware, thunkMiddleware);

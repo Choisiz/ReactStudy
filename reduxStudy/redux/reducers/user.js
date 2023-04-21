@@ -23,7 +23,7 @@ const userReducer = (prevState = initState, action) => {
         isLoggingIn: false,
         data: null,
       };
-    case "LOG_OUt":
+    case "LOG_OUT":
       return {
         ...prevState,
       };
